@@ -1,23 +1,23 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
-import { Mail, MapPin, ArrowLeft } from 'lucide-react';
+import { Mail, MapPin, ArrowLeft, Menu, X } from 'lucide-react';
 
 interface TeamMember {
   name: string;
-  role: string;
-  bio: string;
-  email?: string;
 }
 
 const teamMembers: TeamMember[] = [
-  {
-    name: "Kiyaan Pillai",
-    role: "Founder & Director",
-    bio: "Passionate about creating meaningful intergenerational connections that enrich both youth and elders.",
-    email: "kiyaan@enlivenup.org"
-  }
+  { name: "Vishwa" },
+  { name: "Saanvi" },
+  { name: "Aria" },
+  { name: "Reeya" }
 ];
 
 export default function TeamPage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -26,7 +26,9 @@ export default function TeamPage() {
           <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
             Enliven
           </Link>
-          <div className="flex gap-8 items-center">
+          
+          {/* Desktop Menu */}
+          <div className="hidden md:flex gap-8 items-center">
             <Link href="/#mission" className="text-gray-700 hover:text-violet-600 transition">
               Mission
             </Link>
@@ -43,7 +45,42 @@ export default function TeamPage() {
               Get Involved
             </button>
           </div>
+          
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? (
+              <X size={24} className="text-gray-700" />
+            ) : (
+              <Menu size={24} className="text-gray-700" />
+            )}
+          </button>
         </div>
+        
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-gray-200 bg-white">
+            <div className="flex flex-col gap-4 px-6 py-4">
+              <Link href="/#mission" className="text-gray-700 hover:text-violet-600 transition">
+                Mission
+              </Link>
+              <Link href="/#about" className="text-gray-700 hover:text-violet-600 transition">
+                About
+              </Link>
+              <Link href="/team" className="text-violet-600 font-semibold">
+                Team
+              </Link>
+              <Link href="/#partnerships" className="text-gray-700 hover:text-violet-600 transition">
+                Partners
+              </Link>
+              <button className="bg-violet-600 text-white px-6 py-2 rounded-full hover:bg-violet-700 transition w-full">
+                Get Involved
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
@@ -64,27 +101,16 @@ export default function TeamPage() {
       {/* Team Members Grid */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member) => (
               <div
                 key={member.name}
-                className="bg-gradient-to-br from-violet-50 to-pink-50 rounded-2xl p-8 border border-violet-200 hover:shadow-lg transition"
+                className="bg-gradient-to-br from-violet-50 to-pink-50 rounded-2xl p-8 border border-violet-200 hover:shadow-lg transition text-center"
               >
                 <div className="w-full h-48 bg-gradient-to-br from-violet-400 to-pink-400 rounded-xl mb-6 flex items-center justify-center">
                   <span className="text-6xl">👤</span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{member.name}</h3>
-                <p className="text-violet-600 font-semibold mb-4">{member.role}</p>
-                <p className="text-gray-700 mb-6 leading-relaxed">{member.bio}</p>
-                {member.email && (
-                  <a
-                    href={`mailto:${member.email}`}
-                    className="inline-flex items-center gap-2 text-violet-600 hover:text-violet-700 font-semibold"
-                  >
-                    <Mail size={18} />
-                    {member.email}
-                  </a>
-                )}
+                <h3 className="text-2xl font-bold text-gray-900">{member.name}</h3>
               </div>
             ))}
           </div>

@@ -1,8 +1,13 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowRight, Users, Music, Heart, MapPin } from 'lucide-react';
+import { ArrowRight, Users, Music, Heart, MapPin, Menu, X } from 'lucide-react';
 
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -11,7 +16,9 @@ export default function Home() {
           <div className="text-2xl font-bold bg-gradient-to-r from-violet-600 to-pink-600 bg-clip-text text-transparent">
             Enliven
           </div>
-          <div className="flex gap-8 items-center">
+          
+          {/* Desktop Menu */}
+          <div className="hidden md:flex gap-8 items-center">
             <Link href="#mission" className="text-gray-700 hover:text-violet-600 transition">
               Mission
             </Link>
@@ -28,7 +35,42 @@ export default function Home() {
               Get Involved
             </button>
           </div>
+          
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            {menuOpen ? (
+              <X size={24} className="text-gray-700" />
+            ) : (
+              <Menu size={24} className="text-gray-700" />
+            )}
+          </button>
         </div>
+        
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-gray-200 bg-white">
+            <div className="flex flex-col gap-4 px-6 py-4">
+              <Link href="#mission" className="text-gray-700 hover:text-violet-600 transition">
+                Mission
+              </Link>
+              <Link href="#about" className="text-gray-700 hover:text-violet-600 transition">
+                About
+              </Link>
+              <Link href="/team" className="text-gray-700 hover:text-violet-600 transition">
+                Team
+              </Link>
+              <Link href="#partnerships" className="text-gray-700 hover:text-violet-600 transition">
+                Partners
+              </Link>
+              <button className="bg-violet-600 text-white px-6 py-2 rounded-full hover:bg-violet-700 transition w-full">
+                Get Involved
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
