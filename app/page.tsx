@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Users, Music, Heart, MapPin } from 'lucide-react';
 
 export default function Home() {
@@ -17,7 +18,7 @@ export default function Home() {
             <Link href="#about" className="text-gray-700 hover:text-violet-600 transition">
               About
             </Link>
-            <Link href="#team" className="text-gray-700 hover:text-violet-600 transition">
+            <Link href="/team" className="text-gray-700 hover:text-violet-600 transition">
               Team
             </Link>
             <Link href="#partnerships" className="text-gray-700 hover:text-violet-600 transition">
@@ -50,8 +51,14 @@ export default function Home() {
                 </button>
               </div>
             </div>
-            <div className="bg-gradient-to-br from-violet-400 to-pink-400 rounded-3xl h-96 flex items-center justify-center text-white text-6xl">
-              🎵
+            <div className="relative w-full h-96 rounded-3xl overflow-hidden shadow-xl">
+              <Image
+                src="/images/hero.jpg"
+                alt="Intergenerational performance"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </div>
         </div>
@@ -107,7 +114,7 @@ export default function Home() {
           <h2 className="text-4xl font-bold text-gray-900 mb-8">About Enliven</h2>
           <div className="prose prose-lg max-w-none">
             <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-              At Enliven, we are dedicated to bridging the gap between elders and youth through meaningful exchange. We create concerts and performances—both small and large—to engage seniors of all abilities.
+              At Enliven, we are dedicated to bridging the gap between elders and youth through meaningful exchange. We create concerts and performances (both small and large) to engage seniors of all abilities.
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
               This exchange offers an enriching experience for both elders and youth, helping create special bonds and memories that enrich everyone involved. We believe that the strongest communities are built on genuine human connection across generations.
